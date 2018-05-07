@@ -14,6 +14,8 @@ The BES program at RHIC has shown hints of a critical point and first order phas
 
 The design of the EPD consists of two scintillator discs at z= ± 3.75m from the center of STAR, covering 2.2 <η< 5.1, the same as the BBC. The detector will be read out by silicon photomultipliers - an inexpensive and magnetic field insensitive replacement for the traditional phototube. A prototype of the detector, consisting of a single sector was integrated into STAR during the 2016 run, which will be shown. The optimized segmentation, size and shape of the final design was decided in order to maximize event plane resolution, , centrality estimation and flow harmonic measurements. We will discuss the plans to install one quarter of a disc into STAR for the 2017 run. [1]
 
+In the proposal of EPD, USTC was assigned to undertake the production and quality assurance of readout module, which is comprised of SiPM board, front-end electronic (FEE) board and receiver(RX) board. We developed a completely system for batch test, including test platform, gui controller and web database.
+
 ---
 
 ## System Design & Setup
