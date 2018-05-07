@@ -1,10 +1,10 @@
-# Quanlity control and batch testing for STAR-EPD Readout Module
+# Quality control and batch testing for STAR-EPD Readout Module
 
 ## Abstract
 
 Event Plane, centrality, and trigger Detector(EPD) is a plastic scintillation detector
-designedtobeinstalledonRHIC-STAR.SiPMs are used to collect photons produced by scintillators,
-while FEE boards and RX boards are used to amplify and recieve signals from SiPMs. We care about
+designed to be installed on RHIC-STAR. SiPMs are used to collect photons produced by scintillators,
+while FEE boards and RX boards are used to amplify and receive signals from SiPMs. We care about
 their performances before installing, e.g., UI curve, noise frequency spectrum, signal characters.
 Thus, we setup a batch test system, which is made up of pulse generator, LED, digitizer, etc.
 
@@ -119,13 +119,32 @@ distribution, this waveform should be dump.
 
 ## Batch Test
 
+The new Event Plane Detector will consist of 24 azimuthal segments, spanning an angle of $15\degree$ which we give the label "sector". A super sector will contain two sectors. There are 16 segments in $\eta$, with the innermost tile spanning the entire super-sector, and the other tiles dividing it in two for better $\phi$ resolution. This is resulted in a total of 744 channels for the two EPD disks.[3] Furthermore, there is an extra 4 super sectors to be constructed as a failsafe. So we prepared 60 individual readout modules with 16 SiPM channel each.
+
 ### Workflow
 
+As for such a number of channels, an important step before testing is to establish a proper and strict workflow, which would ensure a consistent testing conditions and increase our cooperation efficiency.
+
+In the beginning of batch testing, we labelled all the components with series number and created tracking sheets to record following operations and results. Then the SiPM boards were sent to a clean room for visual inspection. Under a microscope, SiPM with dust or defect can be found easily. The kapton was employed to protect SiPM from dust and scratch, while defective ones should be picked up and rejected for further steps. Next, the SiPM board would be installed with a FEE borad and fiber connector in our dark box. After power restarted, we could control this system and perform remaining test items in a controller panel. All of data was collected and saved as ROOT file automatically, while a simple check procedure performed at the end of running. Configuration of each item is listed in the table below.
+
+Item|Parameter|Unit|Description|
+-|-|-|-|
+UI Curve||V, Volt|[Start, Stop, Step]|
+Pedestal|-127, 0, 127|-|DAC input digits|
+Noise||V, Volt||
+Signal||V, Volt||
+
+Once all the tests are successfully performed, these components will be seperated from the system, packed with antistatic bags and stored.
+
 ### Control panel
+
+The controller is a GUI script, which is based on ROOT framework. It was developed to encapsulate drivers of FEE board and digitizer and provide graphic interface for efficient operations.
 
 ### Data processing & result
 
 ### Database
+
+DetectorDB provides a web viewer to show records and test results of our detectors. It is comprised of a main table (bootstrap-table), an image viewer (baguetteBox.js) and a ROOT file browser (jsroot). For more details about the implementation, you can have a look at the corresponding repository on GitHub.
 
 ---
 
@@ -142,3 +161,5 @@ distribution, this waveform should be dump.
 1. Justin Ewigleben, and STAR Collaboration. "An Improved Event Plane Detector for the STAR Experiment" [Link](http://meetings.aps.org/link/BAPS.2017.APR.M13.4)
 
 2. Yang, Chi, and STAR Collaboration. "The STAR beam energy scan phase II physics and upgrades." Nuclear Physics A 967 (2017): 800-803.
+
+3. STAR Collaboration. "An Event Plane Detector for STAR" [Construction Proposal](https://drupal.star.bnl.gov/STAR/files/Construction_Proposal_0.pdf), May 2016
