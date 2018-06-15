@@ -119,40 +119,46 @@ distribution, this waveform should be dump.
 
 ## Batch Test
 
-The new Event Plane Detector will consist of 24 azimuthal segments, spanning an angle of $15\degree$ which we give the label "sector". A super sector will contain two sectors. There are 16 segments in $\eta$, with the innermost tile spanning the entire super-sector, and the other tiles dividing it in two for better $\phi$ resolution. This is resulted in a total of 744 channels for the two EPD disks.[3] Furthermore, there is an extra 4 super sectors to be constructed as a failsafe. So we prepared 60 individual readout modules with 16 SiPM channel each.
+The new Event Plane Detector will consist of 24 azimuthal segments, spanning an angle of $15\degree$ which we give the label "sector". A super sector will contain two sectors. There are 16 segments in $\eta$, with the innermost tile spanning the entire supersector, and the other tiles dividing it in two for better $\phi$ resolution. This results in a total of 744 channels for the two EPD disks.[3] Furthermore, there are extra 4 super sectors to be constructed as a failsafe. So we prepared 60 individual readout modules with 16 SiPM channel each. In view of a large number of measurement to perform, a custom semi-automatized system controlled by computer has been developed.
 
 ### Workflow
 
-As for such a number of channels, an important step before testing is to establish a proper and strict workflow, which would ensure a consistent testing conditions and increase our cooperation efficiency.
+As for such a number of channels, an important step before testing is to establish a proper and strict workflow, which would ensure consistent testing conditions and increase our cooperation efficiency.
 
-In the beginning of batch testing, we labelled all the components with series number and created tracking sheets to record following operations and results. Then the SiPM boards were sent to a clean room for visual inspection. Under a microscope, SiPM with dust or defect can be found easily. The kapton was employed to protect SiPM from dust and scratch, while defective ones should be picked up and rejected for further steps. Next, the SiPM board would be installed with a FEE borad and fiber connector in our dark box. After power restarted, we could control this system and perform remaining test items in a controller panel. All of data was collected and saved as ROOT file automatically, while a simple check procedure performed at the end of running. Configuration of each item is listed in the table below.
+At the beginning of batch testing, we labeled all the components with serial number and created tracking sheets to record following operations and results. Then the SiPM boards were sent to a clean room for visual inspection. Under a microscope, SiPM with dust or defect can be found easily. The Kapton was employed to protect SiPM from dust and scratch, while defective ones should be picked up and rejected for further steps. Next, the SiPM board would be installed with an FEE board and fiber connector in our dark box. After power restarted, we could control this system and perform remaining test items in a controller panel. All of the data was collected and saved as ROOT file automatically, while a simple check procedure performed at the end of running. The configuration of each item is listed in the table below.
 
 Item|Parameter|Unit|Description|
 -|-|-|-|
-UI Curve||V, Volt|[Start, Stop, Step]|
+UI Curve|53, 63, 0.5|V, Volt|[Start, Stop, Step]|
 Pedestal|-127, 0, 127|-|DAC input digits|
 Noise||V, Volt||
 Signal||V, Volt||
 
-Once all the tests are successfully performed, these components will be seperated from the system, packed with antistatic bags and stored.
+Once all the tests are successfully performed, these components will be separated from the system, packed with antistatic bags and stored.
 
 ### Control panel
 
-The controller is a GUI script, which is based on ROOT framework. It was developed to encapsulate drivers of FEE board and digitizer and provide graphic interface for efficient operations.
+The controller is a C++ script program, which is based on ROOT framework []. It was developed to encapsulate drivers of FEE board and digitizer and provide a graphic interface for efficient operations. As shown in Fig[], there are five parts in the panel, which contains user interface of test information, hardware settings, and action buttons. Before main procedure starts, operators should check the connection of FEE and digitizer with a click of "Check" button. Then if they work well, you will get the serial number of FEE board and type of digitizer. Then click "UI Curve" button to run a voltage scan for SiPMs and record their current. At last, "START" a sequence waveform sampling and wait for data processing.
 
 ### Data processing & result
 
+The result of 60 modules display a good consistency of qualities. As a key parameter, we focused attention on the distribution of operation voltage and compared it with the distribution of breakdown voltage measured by manufacturer (Fig. []). Figure [] presents signal histogram of all SiPM in one plot, in which we can point out at least 3 peaks for most channels.
+
 ### Database
 
-DetectorDB provides a web viewer to show records and test results of our detectors. It is comprised of a main table (bootstrap-table), an image viewer (baguetteBox.js) and a ROOT file browser (jsroot). For more details about the implementation, you can have a look at the corresponding repository on GitHub.
+In order to organize data in a manner which allow us and our collaborators to store, query, sort and manipulate in various ways, a simple database, which is called DetectorDB or detdb, was developed and launched on our website.
+
+DetectorDB provides a web viewer to show records and test results of our detectors. It is comprised of the main table (bootstrap-table), an image viewer (baguetteBox.js) and a ROOT file browser (jsroot). For more details about the implementation, you can have a look at the corresponding repository on GitHub.
 
 ---
 
 ## Summary
 
+In this paper, we introduced a dedicated system and comprehensive procedure for qualtiy control of STAR-EPD readout modules. Our result shows the system was satisfied with the requirements and preforming very well during batch testing. About 48 modules have been installed and running in STAR. This system included the web database will also play an important role in the successive collaboration and further R&D programs.
+
 ---
 
-## Acknowlegment
+## Acknowledgment
 
 ---
 
