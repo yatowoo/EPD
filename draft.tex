@@ -2,7 +2,7 @@
     \usepackage{jinstpub}
     \usepackage{floatrow}
     \usepackage{subfig}
-    \title{Quality control and batch testing for STAR-EPD Front-end Readout Module}
+    \title{Quality control and batch testing for STAR-EPD front-end readout module}
     \author[a]{Liang Z.}
     \author[a]{Shen K.}
     \author[a]{Wu Y.}
@@ -33,12 +33,22 @@
 \flushbottom
 
 \section{Introduction}
-Relativistic Heavy Ion Collider(RHIC), locates at Brookhaven National Lab(BNL), 
-is determined to collide heavy ions. The Solenoidal Tracker at RHIC(STAR) tracks
-particles produced by RHIC.
-\paragraph{STAR}
-\paragraph{BESII}
-\paragraph{EPD}
+Relativistic Heavy Ion Collider (RHIC), locates at Brookhaven National Lab (BNL), is determined to collide heavy ions, which led to the discovery of Quark-Gluon Plasma (QGP).
+The Solenoidal Tracker at RHIC (STAR) tracks particles produced by RHIC and is able to make important measurements helping answer key questions for understanding QCD matter and strong force.
+The Beam Energy Scan program (BES) at RHIC has shown hints of a critical point and first-order phase transition at the BES energies.
+Key measurements for locating the critical point and determining the first order phase transition are limited by poor event plane resolution, limited statistics, and a TPC-only centrality determination.
+Therefore, phase II of the BES program was proposed to take data with upgraded detectors and increased statistics for the further investigation.\cite{pr17}\cite{cyang}
+
+A new event plane and collision centrality detector is planned to replace the existing detector, the Beam-Beam Counter (BBC), with higher granularity and acceptance.
+The design of the Event Plane Detector (EPD) consists of two 1.2-cm-thick scintillator discs at $z= \pm 3.75~m$ from the center of STAR, covering $2.2 <\eta< 5.1$, the same as the BBC.
+To maximize event plane resolution, centrality estimation and flow harmonic measurements, the disc is separated into 372 tiles (12*2 azimuthal sectors, 16+15 radial segments, see [Fig. 1]).
+Each tile is embedded with 3 turns of wavelength shifting fibers coupled to clear fiber outside for readout.
+The emitted photons will be read out by silicon photomultipliers (SiPM) - an inexpensive and magnetic field insensitive replacement for the traditional photo-multiplication tube, which also enhance STAR triggering capability with a nanosecond level timing resolution.
+
+A prototype consisting of a single sector was integrated into STAR during the 2016 run and 1/8 super-sectors in 2017 run. The full EPD construction proposal was approved in 2017, while the final design was confirmed. [Refer.]
+To catch up with the commissioning run in 2018 , USTC had undertook the challenging tasks for mass production and quality control of front-end readout module. which is comprised of SiPM board, front-end electronics (FEE) board, and receiver(RX) board.
+Results from this first process during the construction of full EPD would be a baseline of detector performance.
+In this paper, characterization of every components was researched and parameters were selected for criteria. For better efficiency and specialized operation , we developed a dedicated system for the quality control and batch test, including test platform, GUI controller, and web database. With optimized workflow and control software, we were able to achieve the extreme uniformity across all 744 channels. [JEwig-QM2018]
 
 \section{System Design}
 \paragraph{Test Items \& Test Methods}First, all device's mechanical integrity should be ensured and SiPMs' thickness should be measured,

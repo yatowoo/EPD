@@ -53,3 +53,8 @@ The batch test system is made up of a pulse generator, LED, digitizer, PC with c
 ### Summary
 
 * Lookback the works and results, then emphasize the importance in EPD program.
+
+## Pictures
+
+1. STAR-EPD
+2. 
