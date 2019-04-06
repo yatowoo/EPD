@@ -38,7 +38,7 @@ We developed a dedicated system for the quality control and batch test, includin
 
 * Test Items & Test Methods
 
-Before any performance test executed, all device’s mechanical integrity should be ensured.
+Before any performance test executed, all device's mechanical integrity should be ensured.
 For instance, we should check whether there exists any obvious damage or foreign matters and then measure the distance between SiPM surface and PCB by microscope.
 
 Second, UI curve of a SiPM can help us judge its basic electric properties, e.g., dark current and break down(BD) voltage.
@@ -51,7 +51,7 @@ Thus, we set bias voltage on SiPM at 46.5V, which is below its breakdown voltage
 
 Last, several characteristic signals of SiPM was measured.
 The shape of waveforms should be normal, and pedestal should be changed when adjusting DAC.
-In addition, we need check spectrum of signal charge integral in order to judge the quality of single photon signal’s resolution.
+In addition, we need check spectrum of signal charge integral in order to judge the quality of single photon signal's resolution.
 We first set bias voltage below breakdown voltage (46.5V) to obtain pedestal. And then, set bias voltage at operating voltage (60V)
 for integral signal spectrum, meanwhile, illuminate SiPMs with light from a LED, which is driven by a waveform generator.
 Output all signal into oscilloscope/digitizer, which is triggered in the same frequency as LED.
@@ -59,11 +59,11 @@ After collecting enough waveforms and offline data processing, we get hold of th
 
 * System Chart
 
-System chart is as shown in Figure [].
+A scheme of the system setup is as shown in Figure [].
 
 * Instrument Selection
 
-It’s easy to choose LED, whose luminous wavelength range should cover peak of scintillators’ luminescence spectrum, i.e., 475nm.
+It's easy to choose LED, whose luminous wavelength range should cover peak of scintillators' luminescence spectrum, i.e., 475nm.
 However, choosing oscilloscope or digitizer is a tough decision.
 The oscilloscope can be helpful to acquire more accurate results but only have 4 input channels.
 While there are 16 channels in digitizer front panel but with less precision.
@@ -89,7 +89,7 @@ Figure [] demonstrate the comparison between oscilloscope and digitizer.
 It seems that results from oscilloscope are more accuracy, while results from digitizer only have a resolution of 1 MHz.
 There still exist several ribs in oscilloscope noise spectrum when
 no signal input.
-We believe it’s blame to oscilloscope itself. Considering our tight schedule, we decided to use the digitizer to set up the batch test system.
+We believe it's blame to oscilloscope itself. Considering our tight schedule, we decided to use the digitizer to set up the batch test system.
 
 ### Signal
 
@@ -99,24 +99,23 @@ Different patterns of signal samples are as shown in Figure [].
 
 As is illustrated in Figure [], pedestals of signals from digitizer are sloping.
 With intensive study, this slope changes slightly when the pedestal was manipulated.
-While the variance of slopes is too small to influence pedestal value, it’s a reasonable convention that average value of pedestal is its measurement result.
+While the variance of slopes is too small to influence pedestal value, it's a reasonable convention that average value of pedestal is its measurement result.
 
 From Figure [] we can see the range of pedestal for adjusting.
 
 ### Charge Intergral of Signal
 
-WMore than 5000 signals were collected from oscilloscope/digitizer and then integrate time and amplitude. Subsequently, its spectrum was produced like Figure [].
+More than 5000 signals were collected from oscilloscope/digitizer and then integrate time and amplitude. Subsequently, its spectrum was produced like Figure [].
 
-There’s a little trick when processing waveforms from the digitizer. 
+There's a little trick when processing waveforms from the digitizer.
 Assuming the signal interval that contains whole SiPM signals activated by photons from LED is 550ns to 650ns.
 430ns to 530ns was selected as our first reference interval and 670ns to 770ns as second reference interval.
-Average of this two reference intervals can be regarded as pedestal value of signal interval’s midpoint.
+Average of this two reference intervals can be regarded as pedestal value of signal interval's midpoint.
 Minusing the average value when integrating can totally get rid of the influence of pedestal slope, and improving the resolution of photon spectrum.
 
 Furthermore, waveforms that contain the signal in reference intervals should be rejected.
-It’s easy to do that if we compare the slope, which is calculated by two average value of two intervals, with the distribution of slope.
-If a calculated slope is far away from the mean value of pedestal
-distribution, this waveform should be dumped as well.
+It's easy to do that if we compare the slope, which is calculated by two average value of two intervals, with the distribution of slope.
+If a calculated slope is far away from the mean value of pedestal distribution, this waveform should be dumped as well.
 
 ---
 
@@ -191,7 +190,7 @@ This system included the web database will also play an important role in the su
 
 ## Reference
 
-1. Justin Ewigleben, and STAR Collaboration. "An Improved Event Plane Detector for the STAR Experiment" [Link](http://meetings.aps.org/link/BAPS.2017.APR.M13.4)
+1. Ewigleben, Justin, and EPD STAR. "An Improved Event Plane Detector for the STAR Experiment." APS Meeting Abstracts. 2017.
 
 2. Yang, Chi, and STAR Collaboration. "The STAR beam energy scan phase II physics and upgrades." Nuclear Physics A 967 (2017): 800-803.
 
