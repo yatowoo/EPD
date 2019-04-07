@@ -54,7 +54,7 @@ The batch test system is made up of a pulse generator, LED, digitizer, PC with c
 
 * Lookback the works and results, then emphasize the importance in EPD program.
 
-## Pictures
+## Figures
 
-1. STAR-EPD
-2. 
+1. STAR-EPD and super-module geometry
+2. DAQ system and electronic components (SiPM+connector/FEE/RX)
