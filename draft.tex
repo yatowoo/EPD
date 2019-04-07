@@ -14,19 +14,13 @@
     \emailAdd{torrence@mail.ustc.edu.cn}
     \emailAdd{swing@ustc.edu.cn}
 
-    \abstract{%\bf R\mdseries elativistic \bf H\mdseries eavy \bf I\mdseries on \bf C\mdseries ollider(RHIC), which locates at \bf B\mdseries rookhaven 
-    % \bf N\mdseries ational \bf L\mdseries ab(BNL), is determined to collide ions. \bf S\mdseries olenoidal \bf T\mdseries racker \bf A\mdseries t \bf R\mdseries HIC(STAR)
-    % tracks the thousands of particles produced by ion collisions at RHIC. 
-    \emph{E}vent \emph{P}lane, centrality, and trigger \emph{D}etector(EPD) is a plastic scintillation detector
+    \abstract{\emph{E}vent \emph{P}lane, centrality, and trigger \emph{D}etector(EPD) is a plastic scintillation detector
     designed to be installed on RHIC-STAR. SiPMs are used to collect photons produced by scintillators, while FEE boards and RX boards are used to amplify and recieve signals from SiPMs.
     We care about their performances before installing, e.g., UI curve, noise frequency spectrum, signal characters.
     Thus, we setup a batch test system, which is made up of pulse generator, LED, digitizer, etc.
     }
 
     \keywords{STAR, EPD, SiPM, FEE board, RX board, Noise, Signal, Batch test}
-    
-    % \notoc
-    % \toccontinuoustrue
 
 \begin{document}
 \maketitle
@@ -71,6 +65,106 @@ First, we concern about their noise. Lower bias voltage down to breakdown voltag
 Second, we need to measure offsets of output signals. FEE Board is able to adjust offsets in a certain range. Thus, we need to measure several offsets, under different given control parameters in computer, to get offset range and relation to control parameter.
 Most importantly, we need to analyze signals from SiPMs. Although signals from SiPMs have lots of characteristics, we only concern about single photon signal. We need to see single photon peak in charge spectrum.
 
+
+\section{Characterization and Quality Control}
+The Quality Control (QC) process for the front-end readout module is requested to detect any device and provide a baseline of operative performance under the standards. The QC criteria have been fixed starting by the requirements to have a good uniformity between all the channels. Research on characterization was performed for helping the decision of final QC procedure and system development.
+
+The breakdown(BD) voltage is the bias voltage at which the electric field strength generated in the depletion region is sufficient to create a Geiger discharge. It's important not only because it's what we decide working voltage on, but because it has strong relation with gain under given voltage. Two methods were used to get BD voltage, which is discussed as following.
+
+At BD voltage point, dark current of SiPM have a rapid rise. However, after getting UI curve, different models will give different results[Refer]. This point can be measured after scaning bias voltage points and measure dark current(shown as Figure 4).
+Typical UI curve of SiPM is like figure \ref{fig:ui}, which shows UI curves of all 16 SiPMs in one FEE board.
+Due to low accuracy of an on-board current monitor, the precision of current measurement is less than $0.01~\mu A$.
+Thus, we can only get dark current quite roughly. Despite all this, an inflection point is observed clearly when bias voltage increase.
+This curve is fitted with a third order polynomial for the purpose of simplification.
+At last, the point that is nearest to 0.10 $\mu A$ is appointed as operating voltage.
+
+Gain under a certain temperature of SiPM will increase with bias voltage linearly. It's because of characteristics of quenching step. Bias voltage will decrease until no more avalanche proceeds, which means it will finally decrease to BD voltage. Thus overvoltage, which is defined as the quantity of supplied bias voltage beyond breakdown voltage, will finally decide how much
+charge will be produced during avalanche. The relation is quite simple, which is $Q=C\cdot\Delta V$, where C is capacitance. Therefore, breakdown voltage can be measured from charge information of output signal.
+[Fig.5a] shows a charge spectrum of SiPM under $38^{\circ}C$, measured by QDC, and deviation of two peaks shows gain of single PE. Draw gain under different bias voltage in the same graph, and use a line to fit these points, we finally get [Fig.5b]. Cross point of the line and X-axis is breakdown point, which is 51V in this case.
+
+Gain under the same bias voltage will decrease with the increase of temperature. Higher temperature will increase concentration of charge carreier in PN knots, mean free path of which will decrease meanwhile. Thus, higer electric field strength is needed to provide enough energy for avalanching, which means breakdown voltage is higher. Finally, gain under the same bias voltage will decrease. Gain loss of temperature can be compensated by bias voltage, as is shown in [Fig].
+Default compensation slope we were given is $54~mV/^{\circ}C$,which is shown in [Fig.6a]. However, gain still changes with increasing of temperature. We calculated perfect compensation slope, which is $62.5~mV/^{\circ}C$ under our circumstance, from gain-bias curve and gain-temperature curve, as is shown in [Fig.6b].
+
+Electronic noise of these tree boards is what we concern about, because its frequency spectrum reflects electronic performance in some degree. We expect a smooth spectrum without any unreasonable rip. There are several ways to acquire the spectrum, such as oscilloscope and digitizer, and different ways gives different results. Results are discussed as below.
+
+Many oscilloscope can replace spectrum analyzer to a certain degree, because they can do FFT in real time. However, we can record many waveforms and do FFT in computer after that. Anyway, they give the same result. However, we got unreasonable rips as figure 7a. After comparing with oscilloscope and spectrum without any input signal(figure 7b), we believe these rips are from oscilloscope and digitizer are shown in figure7a itself.
+
+\begin{figure}[ht]
+    \centering
+    \subfloat[Electronic Noise by Oscilloscope]{\includegraphics[width=0.45\textwidth]{fig/Noise_Osc.pdf}}\hspace{20pt}
+    \subfloat[Electronic Noise by Digitizer]{\includegraphics[width=0.45\textwidth]{fig/Noise_Dig.pdf}}\
+    \subfloat[Oscilloscope Noise]{\includegraphics[width=0.45\textwidth]{fig/Osc_Noise.png}}
+    % \subfloat[Digitizer Noise]{\includegraphics[scale=0.15]{_Dig_Noise.jpg}}\hspace{20pt}
+    \caption{Comparison between digitizer \& oscilloscope}\label{fig:noise}
+\end{figure}
+
+It seems that results from oscilloscope are more accuracy, while results from digitizer only have a resolution of 1 MHz.
+There still exist several ribs in oscilloscope noise spectrum when no signal input.
+We believe it's blame to oscilloscope itself. Considering our tight schedule, we decided to use the digitizer to set up the batch test system.
+
+Typical single photon signal is like figure8a. Obvious split of multiple photons signals can be observed. However, charge spectrum measured by QDC, like figure5a, can be used to analyze signal to noise ratio quantitatively. In addition, charge spectrum can be obtained after recording waveforms. Results from oscilloscope and digitizer are shown in figure8. Although spectrum from digitizer, in which case we use CAEN N6742, has more noise than oscilloscope, we still can seperate its multiple photons signals. Possible reasons may be poor performance of digitizer, which can be seen in figure8b. Pedestals of waveforms from digitizer are tilted, and slopes of which are different.
+
+\paragraph{Signal}
+\begin{figure}
+    \centering
+    % \subfloat[Signal from Oscilloscope]{
+    \ffigbox[\FBwidth]{}
+    {
+        {
+            \begin{subfloatrow}[2]
+                \ffigbox[\FBwidth]{\caption{Signal from oscilloscope}}{\includegraphics[scale=0.45]{fig/Signal_Osc2.pdf}}
+                % \ffigbox[\FBwidth]{\caption{Signal Persistence}}{\includegraphics[scale=0.2]{Signal_Osc.pdf}}\
+                \ffigbox[\FBwidth]{\caption{Signals from digitizer}\label{fig:signal-dgtz}}{\includegraphics[scale=0.35]{fig/Signal_Dig.pdf}}
+            \end{subfloatrow}
+        }
+        \caption{Signal Examples}\label{fig:signal}
+    }
+\end{figure}
+Different patterns of signal samples are as shown in figure \ref{fig:signal}.
+
+\subparagraph{Pedestal}
+As is illustrated in figure \ref{fig:signal-dgtz}, pedestals of signals from digitizer are sloping.
+With intensive study, this slope changes slightly when the pedestal was manipulated.
+While the variance of slopes is too small to influence pedestal value, it's a reasonable convention that average value of pedestal is its measurement result.
+
+\begin{figure}[ht]
+    \includegraphics[scale=0.5]{fig/Pedestal.pdf}
+    \caption{Pedestal Testing}\label{fig:ped}
+\end{figure}
+
+From figure \ref{fig:ped} we can see the range of pedestal for adjusting.
+
+
+\subparagraph{Charge Integral of Signal}
+
+More than 5000 signals were collected from oscilloscope/digitizer and then integrate time and amplitude. Subsequently, its spectrum was produced like figure \ref{fig:spectrum}.
+
+There's a little trick when processing waveforms from the digitizer.
+Assuming the signal interval that contains whole SiPM signals activated by photons from LED is 550ns to 650ns.
+430ns to 530ns was selected as our first reference interval and 670ns to 770ns as second reference interval.
+Average of this two reference intervals can be regarded as pedestal value of signal interval's midpoint.
+Minusing the average value when integrating can totally get rid of the influence of pedestal slope, and improving the resolution of photon spectrum.
+
+Furthermore, waveforms that contain the signal in reference intervals should be rejected.
+It's easy to do that if we compare the slope, which is calculated by two average value of two intervals, with the distribution of slope.
+If a calculated slope is far away from the mean value of pedestal distribution, this waveform should be dumped as well.
+    
+\begin{figure}[ht]
+    \ffigbox[\FBwidth]{}{
+        {
+            \begin{subfloatrow}[2]
+                \ffigbox{\caption{Result from oscilloscope}}{\includegraphics[width=0.45\textwidth]{fig/Oscilloscope_Integral.pdf}}
+                \ffigbox{\caption{Result from digitizer}}{\includegraphics[width=0.45\textwidth]{fig/Digitizer_Integral.pdf}}
+            \end{subfloatrow}
+        }
+        \caption{Integral Testing}\label{fig:spectrum}
+    }
+\end{figure}
+    
+\subsection{System Design}
+
+Light source of the system should have the waveform that SiPM response the most. The response curve of SiPMs we use, which is Hamamatsu S13360-1325PE, is shown as figure9. Thus, we choose 470nm LED. Besides, light intensity in each channel should be as much uniform as possible. We decide to use a transparent hexagonal quartz pipe to conduct, mix and diffuse light, as is shown in figure10. LED illuminate one end of the pipe, while another end of pipe is used to cople with light fibers through a sillicon gel pad. Finally, SiPMs are illuminated by fibers at another end of fibers, between which there exists a thin air gap.
+
 \section{System Design}
 \paragraph{Test Items \& Test Methods}First, all device's mechanical integrity should be ensured and SiPMs' thickness should be measured,
 i.e., we should first check whether there exists any obvious damage and than measure thickness of SiPM by microscope.
@@ -106,162 +200,6 @@ However, choosing oscilloscope or digitizer is a tough decision. Oscilloscope ca
     % \includegraphics[scale=0.25]{Flow_Chart.png}
 \end{figure}
 
-
-
-\section{SiPM Characterization}
-    \paragraph{UI Curve}
-    %we measure UI characteristic curve of each SiPM through current and voltage monitors, which are installed on FEE Boards. 
-    
-    % \begin{figure}[!h]
-    %     \centering
-    %     \graphicspath{{/Users/john/Desktop/EPD_Summary/UI_Curve/}}
-    %     \includegraphics[scale=0.2]{Characteristic_UI_Curve_Example.jpg}
-    %     \caption{UI Curve Example}\label{fig:UI Curve Example}
-    % \end{figure}
-    Typical UI curve of SiPM is like figure \ref{fig:UI Curve Example}, which shows UI curves of all 16 SiPMs in one FEE board.
-    
-    Due to low accuracy of current monitor, current measurement is less precise than 0.01$\mu$A.
-    Thus, we can only get dark current quite roughly. Anyway, we can see a sudden increase when bias voltage increase.
-    We choose the point, whose current is closest to 0.1 $\mu$A as break point, for the purpose of simplifing.
-    At last, we can get distribution of "break down voltage".
- 
-
-    \paragraph{Noise} Comparison between oscilloscope and digitizer is showed in figure \ref{fig:Noise Comparison}
-    % \begin{figure}[!h]
-    %     \graphicspath{{/Users/john/Desktop/EPD_Summary/Noise/}}
-    %     \ffigbox[\FBwidth]{}{
-    %         {
-    %             \begin{subfloatrow}[2]
-    %                 \ffigbox[\hsize]{\caption{Oscilloscope noise}}{\includegraphics[scale=0.15]{Characteristic_Osc_Noise.jpg}}
-    %                 \ffigbox[\hsize]{\caption{Electronic noise analysed by oscilloscope}}{\includegraphics[scale=0.15]{Characteristic_Noise_Osc.jpg}}
-    %             \end{subfloatrow}    
-    %         }
-    %         \caption{Results from oscilloscope}\label{hello}
-    %     }
-    %     \ffigbox[\FBwidth]{}{{
-    %     \begin{subfloatrow}[2]
-    %         \ffigbox[\hsize]{\caption{Digitizer noise}}{\includegraphics[scale=0.15]{Characteristic_Dig_Noise.jpg}}
-    %         \ffigbox[\hsize]{\caption{Electronic noise analysed by oscilloscope}}{\includegraphics[scale=0.15]{Characteristic_Noise_Dig.jpg}}
-    %     \end{subfloatrow}}\caption{Results from digitizer}}
-
-
-    %     % \end{floatrow}
-    % \end{figure}
-
-    \begin{figure}[ht]
-        \centering
-        \subfloat[Electronic Noise by Oscilloscope]{\includegraphics[scale=0.3]{fig/Noise_Osc.pdf}}\hspace{20pt}
-        \subfloat[Electronic Noise by Digitizer]{\includegraphics[scale=0.3]{fig/Noise_Dig.pdf}}\
-        \subfloat[Oscilloscope Noise]{\includegraphics[scale=0.15]{fig/Osc_Noise.png}}
-        % \subfloat[Digitizer Noise]{\includegraphics[scale=0.15]{_Dig_Noise.jpg}}\hspace{20pt}
-        \caption{Comparison between Dig \& Osc}\label{fig:Noise Comparison}
-    \end{figure}
-
-    It seems that results from oscilloscope are more accuracy, while results from digitizer only have resolution of 1 MHz.
-    Strangely, there still exist several ribs in oscilloscope noise spectrum when no signal input at all.
-    We believe it's blame to oscilloscope itself.
-    Considering of tight schedule, we deside to use digitizer to setup batch test system.
-        
-        % \centering
-        % \includegraphics[scale=0.2]{Characteristic_Noise_Osc.jpg}
-        % \caption{Noise spectrum measured by oscilloscope}
-
-        % \includegraphics[scale=0.2]{Characteristic_Noise_Dig.jpg}
-        % \caption{Noise spectrum measured by digtizer}
-    % \end{figure}
-
-
-    \paragraph{Signal}
-    \begin{figure}
-        \centering
-        % \subfloat[Signal from Oscilloscope]{
-            \ffigbox[\FBwidth]{}
-            {
-                {
-                    \begin{subfloatrow}[2]
-                        \ffigbox[\FBwidth]{\caption{Signal from Oscilloscope}}{\includegraphics[scale=0.45]{fig/Signal_Osc2.pdf}}
-                        % \ffigbox[\FBwidth]{\caption{Signal Persistence}}{\includegraphics[scale=0.2]{Signal_Osc.pdf}}\
-                        \ffigbox[\FBwidth]{\caption{Signals from Digitizer}\label{fig:Digitizer signal example}}{\includegraphics[scale=0.35]{fig/Signal_Dig.pdf}}
-                    \end{subfloatrow}
-                }
-                \caption{Signal Examples}\label{fig:Signal Example}
-
-            }
-        % }
-        % \subfloat[Signal from Digitizer]{\includegraphics[scale=0.2]{Signal_Dig.pdf}}
-
-        % \caption{Signal Examples}\label{fig:Signal Example}
-
-        % \includegraphics[scale=0.2]{Signal_Osc.pdf}
-        % \caption{Signal Example}\label{fig:Signal Example}
-    \end{figure}
-    Signal examples are as shown in figure \ref{fig:Signal Example}.
-
-    \subparagraph{Pedestal}As is shown in figure \ref{fig:Digitizer signal example}, pedestals of signals from digitizer are sloping.
-    With further disicussion, we find that different pedestals have different slope.
-    However, differece of slopes are too small to influnce pedestal value.
-    Thus, it's a reasonable convention that average value of pedestal is its measurement result.
-
-    \begin{figure}[ht]
-        % \ffigbox[\FBwidth]{}{
-        %     {
-        %         \begin{subfloatrow}[2]
-        %             \ffigbox{\caption{Result from oscilloscope}}{\includegraphics[scale=0.2]{Oscilloscope_Pedestal.jpg}}
-        %             \ffigbox{\caption{Result from digitizer}}{\includegraphics[scale=0.2]{Digitizer_Pedestal.jpg}}
-        %         \end{subfloatrow}
-        %     }
-
-        \includegraphics[scale=0.5]{fig/Pedestal.pdf}
-        \caption{Pedestal Testing}\label{fig:Pedestal Testing}
-        % }
-    \end{figure}
-
-
-    % Figure \ref{fig:Pedestal Testing} shows relation between DAC and pedestal value. We can see that DAC can work well.
-    From figure \ref{fig:Pedestal Testing} we can see adjusting range of pedestal.
-
-
-
-
-
-    \subparagraph{Charge Intergral of Signal}
-
-    We collect more than 5000 signals from oscilloscope/digitizer and then integrate time and amplitude. Finally, we get its
-    spectrum like figure \ref{fig:Integral Testing}.
-
-    There's a little trick when analysing waveforms from digitizer. Assuming the signal interval that contains whole SiPM signals activated
-    by photons from LED is 550ns to 650ns.
-    We choose 430ns and 530ns as our first reference interval, and 670ns to 770ns as second reference interval. 
-    Average of this two reference intervals can be regard as pedestal value of signal interval's midpoint.
-    Minusing the average value when integrating can totally get rid of influnce of pedestal slope, and increase resolution of photon spectrum.
-
-    Furthermore, we need to abandon waveforms which contain signal in reference intervals. It's easy to do that if we compare the slope, which is 
-    calculated by two average value of two intervals, with the distribution of slope. If the calculated slope is far away from mean value of 
-    pedestal distribution, this waveform should be dump.
-
-    \begin{figure}[ht]
-        \ffigbox[\FBwidth]{}{
-            {
-                \begin{subfloatrow}[2]
-                    \ffigbox{\caption{Result from oscilloscope}}{\includegraphics[scale=0.4]{fig/Oscilloscope_Integral.pdf}}
-                    \ffigbox{\caption{Result from Digitizer}}{\includegraphics[scale=0.4]{fig/Digitizer_Integral.pdf}}
-                \end{subfloatrow}
-            }
-            \caption{Integral Testing}\label{fig:Integral Testing}
-        }
-        % \includegraphics[scale=0.2]{Integral_Example.jpg}
-        % \caption{fjldksajf}
-    \end{figure}
-
-    
-    % \begin{figure}[ht]
-    %     \graphicspath{{/Users/john/Desktop/EPD_Summary/Signal/Integral/}}
-    %     \centering
-    %     \includegraphics[scale=0.2]{Dig_Signal_Process.jpg}
-    %     \caption{Process signal from digitizer}
-    % \end{figure}
-
-    
 
 
 
