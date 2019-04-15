@@ -34,10 +34,9 @@ Key measurements for locating the critical point and determining the first order
 Therefore, phase II of the BES program was proposed to take data with upgraded detectors and increased statistics for the further investigation.\cite{pr17}\cite{cyang}
 
 A new event plane and collision centrality detector is planned to replace the existing detector, the Beam-Beam Counter (BBC), with higher granularity and acceptance.
-The design of the Event Plane Detector (EPD) consists of two 1.2-cm-thick scintillator discs at $z= \pm 3.75~m$ from the center of STAR, covering $2.2 <\eta< 5.1$, the same as the BBC.
+The design of the Event Plane Detector (EPD) consists of two 1.2-cm-thick plastic scintillator discs at $z= \pm 3.75~m$ from the center of STAR, covering $2.2 <\eta< 5.1$, the same as the BBC.
 To maximize event plane resolution, centrality estimation and flow harmonic measurements, the disc is separated into 372 tiles (12*2 azimuthal sectors, 16+15 radial segments, see [Fig. 1]).
-Each tile is embedded with 3 turns of wavelength shifting fibers coupled to clear fiber outside for readout.
-The emitted photons will be read out by silicon photomultipliers (SiPM) - an inexpensive and magnetic field insensitive replacement for the traditional photo-multiplication tube, which also enhance STAR triggering capability with a nanosecond level timing resolution.
+The emitted photons will be read out by silicon photon-multipliers (SiPM) - an inexpensive and magnetic field insensitive replacement for the traditional photo-multiplication tube, which also enhance STAR triggering capability with a nanosecond level timing resolution.
 
 A prototype consisting of a single sector was integrated into STAR during the 2016 run and 1/8 super-sectors in 2017 run. The full EPD construction proposal was approved in 2017, while the final design was confirmed. [Refer.]
 To catch up with the commissioning run in 2018 , USTC had undertook the challenging tasks for mass production and quality control of front-end readout module. which is comprised of SiPM board, front-end electronics (FEE) board, and receiver(RX) board.
@@ -45,18 +44,24 @@ Results from this first process during the construction of full EPD would be a b
 In this paper, characterization of every components was researched and parameters were selected for criteria. For better efficiency and specialized operation , we developed a dedicated system for the quality control and batch test, including test platform, GUI controller, and web database. With optimized workflow and control software, we were able to achieve the extreme uniformity across all 744 channels. [JEwig-QM2018]
 
 \section{Front-end Readout Module}
+In EPD design, each channel is embedded with wavelength shifting (WLS) optical fiber wound 3 times within the tile. This is coupled to clear optical fiber which is then connected to SiPMs and finally read out by STAR FEEs/QTs.
 To integrated with the STAR mechanic structure and Data Acquisition system (DAQ) [Refer], the front-end readout module of EPD is well-modularized for photo-electric conversion (SiPM), power and temperature management (FEE) as well as signal signal transmission (RX).
 Considering the space of installation is rarely small, the RX board was designed as an adapter to interface between the triggering system and the FEE box ($\sim 0.5~m^3$).
 For compactness, each module processes 16 channels of fiber signal, which is  attached to the SiPM board with a fiber-to-SiPM connector. [Fig. 2]
+
+The model of SiPM for EPD is S13360-1325 from Hamamatsu. All the boards was produced and welded in professional PCB factory, while the quality control procedures are performed in out lab with specific criteria. 
+
 \subsection{SiPM and multi-channel board}
-It's a board aiming at sticking 16 SiPMs together, supplying bias voltage and reading out signals. It has a row of gold-fingers, which makes the board easily inserted into FEE board. Picture of a board with 16 SiPMs stuck to is as shown in Figure 1.
-In order to ensure the PCB boards' quality, appearance of which should be
-examined under microscope. Because SiPMs are too small to stick by ourselves, thus we have it done by a factory, which has professional machines. However, they may also make mistakes. It's our duty to pick them out. First, all SiPMs should not have any dust or scratch and be installed properly. All pins of a SiPM should be sticked to PCB board firmly on right place. Second, we need to make sure that distance between upper surface of SiPM and upper surface of PCB board is within the proper range. Too much variation may bring difficulties to SiPMs' coupling with fibers. There's a spacer, as is shown in 1, between end fiber connector and SiPM Board, which is printed by 3-D printer and have a adjustable thickness, and is used to protect SiPMs from mechanic damages when coupling with fibers through air. However, if the height of SiPM varies a lot, the distance between fiber and SiPM is different. This makes it hard to maintain light uniformity. These can be visual inspected under microscope.
+Commercial SiPM technology has been widely used for low-photon-yield light detection in high-energy experiments. They can provide high gain ($\sim10^{6}$), high quantum efficiency ($\geq20\%$) and fast response ($\sigma_{tof}\sim250~ps$) with low voltage  ($20\sim100~V$). Since the compact structure, the signal parameters are practically independent of external magnetic fields, in contrast to standard PMT.
+
+The multi-channel board serves as a middle-ware to aggregate all the 16 SiPMs for easy connection to the FEE board and the 3D-printer optical fiber connector. SiPM is welded on designated spot with its bias voltage and signal pin, which is linked to the gold fingers on board.[Refer] To ensure the light uniformity, upper surface of SiPMs should be almost parallel with PCB board, which means reduced variance of air gap and included angle to the fiber. For transportation safety, SiPM must be protected from dust, scratch and other possible damage by using Kapton[Refer?] and packaged in shielding bag with foam for buffering.
+
 \subsection{FEE board}
-Front-End Electronic(FEE) board is designed to communicate with computer,
-monitor and control bias voltage supply, amplify and output signals from SiPMs.
-There’re several connectors that have different functions. One is for power supply, including low voltage for electronics in FEE Board and bias voltage for SiPM board. One is prepared for SiPM board, which should be inserted into FEE Board. One is for outputting amplified signals. Amplified signals will be sent to another PCB board for further process's convenience. Another one is for communicating with computer. Bias voltage supplied to SiPM can be monitored and controlled through computer, meanwhile, current of SiPM can also be monitored. Besides, output signals’ offsets can also be adjusted through computer. Temperature compensating for bias voltage is also considered in FEE Board.
+Front-End Electronic(FEE) board is designed to communicate with computer,monitor and control bias voltage supply, amplify and output signals from SiPMs.
+Connector 1 [Fig.] is for power supply, including low voltage for electronics in FEE Board and bias voltage for SiPM board; Connector 2 [Fig.] is prepared for SiPM board, which should be inserted into FEE Board; Connector 3 [Fig.] is for outputting amplified signals. Amplified signals will be sent to RX board for further digitization; Connector 4 [Fig.] is for communicating with computer. 
+Bias voltage supplied to SiPM can be monitored and controlled through computer, meanwhile, current of SiPM can also be monitored. Besides, output signals’ offsets can also be adjusted through computer. Temperature compensating for bias voltage is also considered in FEE Board.
 FEE Board is the most sophisticated one among the three kinds of board. Meanwhile, because its complexity, we don't have enough way to judge its functioning except by inferring from final output signal from RX board. This will be mentioned latter.
+
 \subsection{RX board}
 Due to high integration of FEE Board, there's no sufficient space for standard
 connectors. Thus, Receiver(RX) Board is designed to receive signals from FEE Board and output through SMA standard connectors. RX Board is connected with FEE Board through a IEEE-1284 Compliant Parallel Cable, on which signals from SiPMs are transmitted. Then those signals will be sent to SMB connector. This will make it possible to show these signals in oscilloscope or other instruments. Detailed examination of RX board is beyond our ability. However, we can infer its
